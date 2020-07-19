@@ -26,6 +26,14 @@
             <td>{{ $produk->price }}</td>
             <td>{{ $produk->name }}</td>
             <td>{{ $produk->name_merek }}</td>
+            {{-- <td>
+                <a href="{{ route('produk.edit', $produk) }}" class="btn btn-primary btn-sm" style="float:left;">Edit</a>
+                <form action="{{ route('produk.destroy',$produk) }}" method="post">
+                  {{ csrf_field() }}
+                  <input type="hidden" name="_method" value="DELETE">
+                  <button type="submit" class="btn btn-danger btn-sm" style="margin-left:3px;">Hapus</button>
+                </form>
+            </td> --}}
           </tr>
           @endforeach
         </tbody>

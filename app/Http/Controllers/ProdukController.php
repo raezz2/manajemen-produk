@@ -16,7 +16,7 @@ class ProdukController extends Controller
 		$produks = DB::table('produks')
 		->join('mereks', 'mereks.id', '=', 'produks.merek_id')
 		->join('kategoris', 'kategoris.id', '=', 'produks.kategori_id')
-		->get();
+        ->get();
 		$data = array(
 			'title' => 'index',
 			'no'    => 1,
@@ -44,6 +44,35 @@ class ProdukController extends Controller
 			'price'	    	=> request('price'),
 			'merek_id' 	=> request('merek_id'),
 			'kategori_id'  	=> request('kategori_id')
+		]);
+		return redirect('/produk');
+    }
+
+    // public function edit(Produk $produk)
+	// {
+	// 	$data = array([
+	// 		'title'       => 'Produk',
+    //         'produk'     => $produk,
+    //         'kategoris' => $kategoris,
+	// 		'mereks'  => $mereks,
+    //     ]);
+	// 	return view('produk.edit',$data);
+    // }
+
+    public function edit(Produk $produk)
+    {
+        $data= json_decode( json_encode($data), true);
+        $produk = Produk::find($id);
+        return view('produk_edit', ['produk' => $produk]);
+    }
+
+	public function update(Produk $produk)
+	{
+		$produk->update([
+            'title'      => request('title'),
+            'price'	    	=> request('price'),
+			'merek_id' 	=> request('merek_id'),
+			'kategori_id'  	=> request('kategori_id'),
 		]);
 		return redirect('/produk');
 	}

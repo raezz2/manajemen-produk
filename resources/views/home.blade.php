@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            @include('layouts.sidebara')
+            @include('layouts.sidebar')
         </div>
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -17,9 +17,27 @@
                         </div>
                     @endif
                     <div class="alert alert-success">
-                        <p>You're logged in as USERS</p>
+                        <p>You're logged in as OPERATOR</p>
                     </div>
 
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                          <tr>
+                            <th width="5">No.</th>
+                            <th>Member Name</th>
+                            <th>Email</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($users as $key => $value)
+                            <tr>
+                              <td>{{ $key+1 }}</td>
+                              <td>{{ $value->name }}</td>
+                              <td>{{ $value->email }}</td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
                 </div>
             </div>
         </div>

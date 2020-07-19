@@ -18,14 +18,19 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::group(['middleware' => ['web','auth']], function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // });
 
     Route::get('/home', function () {
         if (Auth::user()->admin == 0) {
-            return view('home');
+            $users['users'] = \App\User::all();
+            return view('home', $users);
         } else {
             $users['users'] = \App\User::all();
             return view('adminhome', $users);
@@ -34,27 +39,36 @@ Route::group(['middleware' => ['web','auth']], function () {
 
 });
 
-/*========================================================== Merek ===================================================================*/
-Route::get('/merek', 'MerekController@index')->name('merek.index');
 
-Route::get('/merek/create', 'MerekController@create')->name('merek.create');
-Route::post('/merek/create','MerekController@store');
+Route::group(['middleware' => ['akses.admin']], function () {
 
-Route::get('/merek/{merek}/edit', 'MerekController@edit')->name('merek.edit');
+    /*========================================================== Merek ===================================================================*/
+    Route::get('/merek', 'MerekController@index')->name('merek.index');
 
-Route::patch('/merek/{merek}/edit', 'MerekController@update')->name('merek.update');
-Route::delete('/merek/{merek}/delete', 'MerekController@destroy')->name('merek.destroy');
+    Route::get('/merek/create', 'MerekController@create')->name('merek.create');
+    Route::post('/merek/create','MerekController@store');
 
-/*========================================================== Kategori ===================================================================*/
-Route::get('/kategori', 'KategoriController@index')->name('kategori.index');
+    Route::get('/merek/{merek}/edit', 'MerekController@edit')->name('merek.edit');
 
-Route::get('/kategori/create', 'KategoriController@create')->name('kategori.create');
-Route::post('/kategori/create','KategoriController@store');
+    Route::patch('/merek/{merek}/edit', 'MerekController@update')->name('merek.update');
+    Route::delete('/merek/{merek}/delete', 'MerekController@destroy')->name('merek.destroy');
 
-Route::get('/kategori/{kategori}/edit', 'KategoriController@edit')->name('kategori.edit');
+    /*========================================================== Kategori ===================================================================*/
+    Route::get('/kategori', 'KategoriController@index')->name('kategori.index');
 
-Route::patch('/kategori/{kategori}/edit', 'KategoriController@update')->name('kategori.update');
-Route::delete('/kategori/{kategori}/delete', 'KategoriController@destroy')->name('kategori.destroy');
+    Route::get('/kategori/create', 'KategoriController@create')->name('kategori.create');
+    Route::post('/kategori/create','KategoriController@store');
+
+    Route::get('/kategori/{kategori}/edit', 'KategoriController@edit')->name('kategori.edit');
+
+    Route::patch('/kategori/{kategori}/edit', 'KategoriController@update')->name('kategori.update');
+    Route::delete('/kategori/{kategori}/delete', 'KategoriController@destroy')->name('kategori.destroy');
+
+
+
+});
+
+
 
 /*========================================================== Produk ===================================================================*/
 Route::get('/produk', 'ProdukController@index')->name('produk.index');
