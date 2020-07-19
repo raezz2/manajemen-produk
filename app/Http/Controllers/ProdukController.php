@@ -11,7 +11,8 @@ use DB;
 class ProdukController extends Controller
 {
 	public function index(){
-		$produks = Produk::All();
+        $produks = Produk::All();
+
 
 		$produks = DB::table('produks')
 		->join('mereks', 'mereks.id', '=', 'produks.merek_id')
@@ -48,37 +49,63 @@ class ProdukController extends Controller
 		return redirect('/produk');
     }
 
-    // public function edit(Produk $produk)
-	// {
-	// 	$data = array([
-	// 		'title'       => 'Produk',
-    //         'produk'     => $produk,
-    //         'kategoris' => $kategoris,
-	// 		'mereks'  => $mereks,
-    //     ]);
-	// 	return view('produk.edit',$data);
-    // }
 
-    public function edit(Produk $produk)
+    public function edit($id)
     {
-        $data= json_decode( json_encode($data), true);
-        $produk = Produk::find($id);
-        return view('produk_edit', ['produk' => $produk]);
+        $merek = Merek::All();
+        $produk = \App\Produk::findOrFail($id);
+
+        return view('produk.edit', ['produk' => $produk, 'mereks' => $merek]);
     }
 
-	public function update(Produk $produk)
-	{
-		$produk->update([
-            'title'      => request('title'),
-            'price'	    	=> request('price'),
-			'merek_id' 	=> request('merek_id'),
-			'kategori_id'  	=> request('kategori_id'),
-		]);
-		return redirect('/produk');
-	}
 
-	public function destroy(Produk $produk){
-		$produk->delete();
-		return redirect()->route('produk.index');
-	}
+
+
+    // public function edit($id)
+    // {
+    //     //
+    //     $merek = Merek::all();
+    //     $kategori = Kategori::all();
+    //     $produks = \App\Produk::findOrFail($id);
+    //     $data = [
+    //         'mereks' => $merek,
+    //         'kategori' => $kategori,
+    //         'produk' => $produks
+    //     ];
+
+    //     return view('produk.edit', $data);
+    // }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Produk  $produk
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+        $produk = \App\Produk::findOrFail($id);
+        $produk->name = $request->get('name');
+        $produk->save();
+
+        return redirect()->route('produk.edit', [$id])->with('status', 'Produk successfully updated');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Produk  $produk
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+        $produk = \App\Produk::findOrFail($id);
+
+        $produk->delete();
+        return redirect()->route('produk.index')->with('status', 'Produk successfully delete');
+    }
 }

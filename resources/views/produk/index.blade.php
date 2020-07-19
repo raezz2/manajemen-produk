@@ -34,6 +34,14 @@
                   <button type="submit" class="btn btn-danger btn-sm" style="margin-left:3px;">Hapus</button>
                 </form>
             </td> --}}
+            <td><a href="{{ route('produk.edit', [$produk->id]) }}"><button class="btn btn-success btn-sm">Edit</button></a> |
+                <form onsubmit="return confirm('Delete this Produk permanently?')" class="d-inline"
+                    action="{{route('produk.destroy', [$produk->id])}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                </form>
+            </td>
           </tr>
           @endforeach
         </tbody>

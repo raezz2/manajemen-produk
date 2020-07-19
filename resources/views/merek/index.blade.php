@@ -22,12 +22,12 @@
               <td>{{ $no++ }}</td>
               <td>{{ $merek->name_merek }}</td>
               <td>
-                <a href="{{ route('merek.edit', $merek) }}" class="btn btn-primary btn-sm" style="float:left;">Edit</a>
-                <form action="{{ route('merek.destroy',$merek) }}" method="post">
-                  {{ csrf_field() }}
-                  <input type="hidden" name="_method" value="DELETE">
-                  <button type="submit" class="btn btn-danger btn-sm" style="margin-left:3px;">Hapus</button>
-                </form>
+                <a href="{{ route('merek.edit', $merek) }}" class="btn btn-success btn-sm" style="float:left;">Edit</a>
+                    <form action="{{ route('merek.destroy',$merek) }}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn btn-danger btn-sm" style="margin-left:3px;">Hapus</button>
+                    </form>
               </td>
             </tr>
             @endforeach

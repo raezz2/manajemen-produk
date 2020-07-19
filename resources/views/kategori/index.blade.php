@@ -22,7 +22,7 @@
               <td>{{ $no++ }}</td>
               <td>{{ $kategori->name }}</td>
               <td>
-                <a href="{{ route('kategori.edit', $kategori) }}" class="btn btn-primary btn-sm" style="float:left;">Edit</a>
+                <a href="{{ route('kategori.edit', $kategori) }}" class="btn btn-success btn-sm" style="float:left;">Edit</a>
                 <form action="{{ route('kategori.destroy',$kategori) }}" method="post">
                   {{ csrf_field() }}
                   <input type="hidden" name="_method" value="DELETE">
