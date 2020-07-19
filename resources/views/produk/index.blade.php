@@ -12,7 +12,7 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>Name Produk</th>
+            <th>Nama Produk</th>
             <th>Harga</th>
             <th>Kategori</th>
             <th>Merek</th>

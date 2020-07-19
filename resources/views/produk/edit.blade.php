@@ -3,17 +3,17 @@
 <div class="container">
   <div class="col-md">
     <div class="panel panel-default">
-      <div class="panel-heading">Edit produk</div>
+      <div class="panel-heading">Edit Produk</div>
       <div class="panel-body">
         <form action="{{route('produk.update', $produk->id)}}" method="post">
           {{ csrf_field() }}
           {{ method_field('PATCH') }}
           <div class="form-group">
-            <label for="">Name produk</label>
-            <input type="text" class="form-control" name="name" placeholder="Enter Your Name" value="{{$produk->title}}">
+            <label for="">Nama Produk</label>
+            <input type="text" class="form-control" name="title" placeholder="Enter Your Name" value="{{$produk->title}}">
           </div>
           <div class="form-group">
-            <label for="">Price produk</label>
+            <label for="">Harga Produk</label>
             <input type="text" class="form-control" name="no_hp" placeholder="Enter Your Phone Number" value="{{$produk->price}}">
           </div>
           <div class="form-group">

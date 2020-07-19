@@ -59,8 +59,6 @@ class ProdukController extends Controller
     }
 
 
-
-
     // public function edit($id)
     // {
     //     //
